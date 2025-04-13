@@ -1,0 +1,17 @@
+class Solution {
+    public int scoreOfString(String s) {
+        int result = 0;
+        char prevChar = s.charAt(0);
+        int prevCharNum = (int) prevChar;
+        for (int i = 1; i < s.length(); i++) {
+            char currChar = s.charAt(i);
+            int currCharNum = (int) currChar;
+
+            result += Math.abs(currCharNum - prevCharNum);
+
+            prevCharNum = currCharNum;
+        }
+
+        return result;
+    }
+}
