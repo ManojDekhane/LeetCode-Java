@@ -1,0 +1,31 @@
+class Solution {
+    public List<String> commonChars(String[] words) {
+        // common so far
+        int[] csf = new int[26];
+        String firstWord = words[0];
+        for (char ch : firstWord.toCharArray()) {
+            csf[ch - 'a']++;
+        }
+
+        int n = words.length;
+        for (int i = 1; i < n; i++) {
+            int[] curr = new int[26];
+            String currWord = words[i];
+            for (char ch : currWord.toCharArray()) {
+                curr[ch - 'a']++;
+            }
+            // Update csf with min value
+            for (int j = 0; j < 26; j++) {
+                csf[j] = Math.min(csf[j], curr[j]);
+            }
+        }
+
+        List<String> res = new ArrayList<>();
+        for (int j = 0; j < 26; j++) {
+            for (int count = 0; count < csf[j]; count++) {
+                res.add(String.valueOf((char)(j + 'a')));
+            }
+        }
+        return res;
+    }
+}
