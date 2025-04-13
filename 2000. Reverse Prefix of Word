@@ -1,15 +1,26 @@
 class Solution {
     public String reversePrefix(String word, char ch) {
-        StringBuilder res = new StringBuilder();
+        char[] array = word.toCharArray();
 
-        for (int i = 0; i < word.length(); i++) {
-            char currentChar = word.charAt(i);
-            res.insert(0, currentChar);
-            if (currentChar == ch) {
-                res.append(word.substring(i+1, word.length()));
-                return res.toString();
+        int left = 0;
+        
+        for (int right = 0; right < word.length(); right++) {
+            char currChar = array[right];
+            if (currChar == ch) {
+                while (left < right) {
+                    swap(array, left, right);
+                    left++;
+                    right--;   
+                }
+                return String.valueOf(array);
             }
-        } 
+        }
         return word;
+    }
+
+    private void swap(char[] array, int left, int right) {
+        char temp = array[left];
+        array[left] = array[right];
+        array[right] = temp;
     }
 }
