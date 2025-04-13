@@ -1,0 +1,18 @@
+class Solution {
+    public int longestPalindrome(String s) {
+        int res = 0;
+        
+        Set<Character> countOccurrence = new HashSet<>();
+
+        for (char ch : s.toCharArray()) {
+            if (countOccurrence.contains(ch)) {
+                res += 2;
+                countOccurrence.remove(ch);
+            } else {
+                countOccurrence.add(ch);
+            }
+        }
+
+        return (countOccurrence.size() > 0) ? res + 1 : res;
+    }
+}
