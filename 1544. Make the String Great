@@ -1,0 +1,15 @@
+class Solution {
+    public String makeGood(String s) {
+        StringBuilder answer = new StringBuilder();
+
+        for (char c : s.toCharArray()) {
+            int len = answer.length();
+            if (len > 0 && Math.abs(answer.charAt(len - 1) - c) == 32) {
+                answer.deleteCharAt(len-1);
+            } else {
+                answer.append(c);
+            }
+        }
+        return answer.toString();
+    }
+}
