@@ -1,0 +1,28 @@
+class Solution {
+    public String reverseParentheses(String s) {
+        StringBuilder result = new StringBuilder();
+        Stack<Character> stack = new Stack<>();
+
+        for (char ch : s.toCharArray()) {
+            if (ch == '(' || ch != ')') {
+                stack.push(ch);
+            } else {
+                ArrayList<Character> list = new ArrayList<>();
+                while (!stack.isEmpty() && stack.peek() != '(') {
+                    list.add(stack.pop());
+                }
+                stack.pop(); // removed opening bracket
+
+                for (char c : list) {
+                    stack.push(c);
+                }
+            }
+        }
+
+        while (!stack.isEmpty()) {
+            result.insert(0, stack.pop());
+        }
+
+        return result.toString();
+    }
+}
