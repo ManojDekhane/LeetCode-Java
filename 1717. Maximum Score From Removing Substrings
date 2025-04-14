@@ -1,0 +1,43 @@
+class Solution {
+    public int maximumGain(String s, int x, int y) {
+        if (x > y) {
+            return removeAndCount(s, "ab", x, "ba", y); 
+        } else {
+            return removeAndCount(s, "ba", y, "ab", x); 
+        }
+    }
+
+    private int removeAndCount(String s, String firstPair, int firstPoints, String secondPair, int secondPoints) {
+        Stack<Character> stack = new Stack<>();
+        int total = 0;
+
+        // First Pass - remove higher value pair
+        for (char c : s.toCharArray()) {
+            if (!stack.isEmpty() && stack.peek() == firstPair.charAt(0) && c == firstPair.charAt(1)) {
+                stack.pop();
+                total += firstPoints;
+            } else {
+                stack.push(c);
+            }
+        }
+
+        // Prepare for second pass
+        StringBuilder remaining = new StringBuilder();
+        while (!stack.isEmpty()) {
+            remaining.append(stack.pop());
+        }
+        remaining.reverse();
+
+        // Second Pass - Remove lower value pair
+        for (char c : remaining.toString().toCharArray()) {
+            if (!stack.isEmpty() && stack.peek() == secondPair.charAt(0) && c == secondPair.charAt(1)) {
+                stack.pop();
+                total += secondPoints;
+            } else {
+                stack.push(c);
+            }
+        }
+
+        return total;
+    }
+}
