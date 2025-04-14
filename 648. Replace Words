@@ -1,0 +1,28 @@
+class Solution {
+    public String replaceWords(List<String> dictionary, String sentence) {
+        HashSet<String> rootWords = new HashSet<>();
+
+        for (int i = 0; i < dictionary.size(); i++) {
+            rootWords.add(dictionary.get(i));
+        }
+
+        String[] sentenceWords = sentence.split(" ");
+        StringBuilder sb = new StringBuilder();
+
+        for (String word : sentenceWords) {
+            String replacement = word;
+
+            for (int i = 0; i <= word.length(); i++) {
+                String prefix = word.substring(0, i);
+                if (rootWords.contains(prefix)) {
+                    replacement = prefix;
+                    break;
+                }
+            }
+
+            sb.append(replacement).append(" ");
+        }
+
+        return sb.toString().trim();
+    }
+}
