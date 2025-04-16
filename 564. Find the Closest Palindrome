@@ -1,0 +1,53 @@
+class Solution {
+    public long findNearestPalindrome(long firstHalf, boolean isOdd) {
+        long res = firstHalf;
+        if (isOdd) {
+            firstHalf /= 10;
+        }
+
+        while (firstHalf > 0) {
+            res = res * 10 + (firstHalf % 10);
+            firstHalf /= 10;
+        }
+
+        return res;
+    }
+
+    public String nearestPalindromic(String n) {
+        ArrayList<Long> list = new ArrayList<Long>();
+        int len = n.length();
+        boolean isOdd = (len % 2 != 0);
+
+        //Copy first half
+        int mid = (len % 2 == 0) ? (len / 2) : (len / 2 + 1);
+
+        Long firstHalf = Long.parseLong(n.substring(0, mid));
+        list.add(findNearestPalindrome(firstHalf, isOdd));
+        list.add(findNearestPalindrome(firstHalf + 1, isOdd));
+        list.add(findNearestPalindrome(firstHalf - 1, isOdd));
+        if (len > 1) {
+            list.add(Long.parseLong("9".repeat(len - 1))); // all 9's
+        } else {
+            list.add(0L); // smallest palindrome less than any 1-digit number
+        }
+        list.add(Long.parseLong("1" + "0".repeat(len - 1) + "1")); // like 1001
+
+
+        long num = Long.parseLong(n);
+        long minDiff = Long.MAX_VALUE;
+        long res = Long.MAX_VALUE;
+
+        for (long element : list) {
+            if (element == num) continue;
+            long currDiff = Math.abs(element - num);
+            if (currDiff < minDiff) {
+                res = element;
+                minDiff = currDiff;
+            } else if (currDiff == minDiff) {
+                res = Math.min(res, element);
+            }
+        }
+
+        return String.valueOf(res);
+    }
+}
