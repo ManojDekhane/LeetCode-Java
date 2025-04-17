@@ -1,0 +1,34 @@
+class Solution {
+    public String reformat(String s) {
+        List<Character> letters = new LinkedList<>();
+        List<Character> digits = new LinkedList<>();
+        StringBuilder sb = new StringBuilder();
+        
+        for (char ch : s.toCharArray()) {
+            if(Character.isDigit(ch)) {
+                digits.add(ch);
+            } 
+            if(Character.isLetter(ch)) {
+                letters.add(ch);
+            } 
+        }
+
+        if ((Math.abs(letters.size() - digits.size()) > 1)) return "";
+
+        boolean isLetter = letters.size() >= digits.size();
+
+        int i = 0, j = 0;
+        while (i < letters.size() || j < digits.size()) {
+            if (isLetter && i < letters.size()) {
+                sb.append(letters.get(i));
+                i++;
+            } else if (!isLetter && j < digits.size()) {
+                sb.append(digits.get(j));
+                j++;
+            }
+            isLetter = !isLetter;
+        }
+
+        return sb.toString();
+    }
+}
