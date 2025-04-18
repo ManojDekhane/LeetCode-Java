@@ -1,0 +1,19 @@
+class Solution {
+    public int minPatches(int[] nums, int n) {
+        long sumFormed = 0;
+        int minPatches = 0;
+        int i = 0;
+
+        while (sumFormed < n) {
+            if (i < nums.length && nums[i] <= sumFormed + 1) {
+                sumFormed += nums[i];
+                i++;
+            } else {
+                minPatches++;
+                sumFormed += sumFormed + 1;  // by adding one patch sumFormed + 1 combinations got possible so add it in earlier sumFormed
+            }
+        }
+
+        return minPatches;
+    }
+}
