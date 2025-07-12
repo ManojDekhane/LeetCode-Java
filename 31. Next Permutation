@@ -1,27 +1,27 @@
+// Step 1 -  From right hand side find the num which is breaking increasing order [This number is to swapped] (num1)
+// Step 2 - now find with which number it is to be swapped(num2). It is to be swapped with the next highest number at right side of num1
+// Step 3- swap num1 and num2
+// Step 4 - reverse the nums array from the next index of num1 
+
 class Solution {
     public void nextPermutation(int[] nums) {
-        int n = nums.length;
-        int i = n - 2;
-
-        while (i >= 0 && nums[i] >= nums[i + 1]) {
-            i--;
-        }
+        int i = nums.length - 2;
+        while (i >= 0 && nums[i] >= nums[i + 1]) i--;
 
         if (i >= 0) {
-            int j = n - 1;
-            while (nums[j] <= nums[i]) {
-                j--;
-            }
+            int j = nums.length - 1;
+            while (j >= 0 && nums[j] <= nums[i]) j--;
+
             swap(nums, i, j);
         }
 
-        reverse(nums, i + 1, n - 1);
+        reverse(nums, i+1, nums.length-1);
     }
 
     private void swap(int[] nums, int i, int j) {
         int temp = nums[i];
         nums[i] = nums[j];
-        nums[j] = temp; 
+        nums[j] = temp;
     }
 
     private void reverse(int[] nums, int start, int end) {
