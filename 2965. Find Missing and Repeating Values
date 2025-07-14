@@ -1,0 +1,26 @@
+class Solution {
+    public int[] findMissingAndRepeatedValues(int[][] grid) {
+        int repeating = 0, missing = 0;
+        int uniqueSum = 0, totalSum = 0, actualSum = 0;
+        int size = grid.length * grid[0].length;
+
+        boolean[] seen = new boolean[size + 1];
+        
+        for (int[] row : grid) {
+            for (int val : row) {
+                if (seen[val]) {
+                    repeating = val;
+                }
+                seen[val] = true;
+                actualSum += val;
+            }
+        }
+
+        totalSum = (size * (size + 1)) / 2; 
+
+        uniqueSum = actualSum - repeating;
+        missing = totalSum - uniqueSum;
+
+        return new int[] {repeating, missing};
+    }
+}
