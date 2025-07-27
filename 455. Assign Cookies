@@ -1,0 +1,22 @@
+class Solution {
+    public int findContentChildren(int[] g, int[] s) {
+        int greed = 0;
+        int cookie = 0;
+        int content = 0;
+
+        Arrays.sort(g);
+        Arrays.sort(s);
+
+        while (greed < g.length && cookie < s.length) {
+            if (g[greed] <= s[cookie]) {
+                content++;
+                cookie++;
+                greed++;
+            } else {
+                cookie++;
+            }
+        }
+
+        return content;
+    }
+}
