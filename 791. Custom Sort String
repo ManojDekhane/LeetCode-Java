@@ -1,0 +1,26 @@
+class Solution {
+    public String customSortString(String order, String s) {
+        StringBuilder output = new StringBuilder();
+
+        int[] freq = new int[26];
+        for (char ch : s.toCharArray()) {
+            freq[ch - 'a']++;
+        }
+
+        for (char ch : order.toCharArray()) {
+            while (freq[ch - 'a'] > 0) {
+                output.append(ch);
+                freq[ch - 'a']--;
+            }
+        }
+
+        for (char ch = 'a'; ch <= 'z'; ch++) {
+            while (freq[ch - 'a'] > 0) {
+                output.append(ch);
+                freq[ch - 'a']--;
+            }
+        }
+
+        return output.toString();
+    }
+}
