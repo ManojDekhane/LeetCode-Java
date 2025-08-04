@@ -1,0 +1,38 @@
+class Solution {
+    List<List<String>> res = new ArrayList<>();
+
+    public List<List<String>> partition(String s) {
+        recur(s, 0, new ArrayList<>());
+        return res;
+    }
+
+    private void recur(String s, int partitionIndex, List<String> sublist) {
+        //base case
+        if (partitionIndex == s.length()) {
+            res.add(new ArrayList<>(sublist));
+        }
+
+        for (int end = partitionIndex; end < s.length(); end++) {
+            if (isPalindrome(s, partitionIndex, end)) {
+
+                //add in sublist
+                sublist.add(s.substring(partitionIndex, end + 1));
+
+                //explore all combinations
+                recur(s, end + 1, sublist);
+
+                //backtrack
+                sublist.remove(sublist.size() - 1);
+            }
+        }
+    }
+
+    private boolean isPalindrome(String s, int start, int end) {
+        while (start < end) {
+            if (s.charAt(start) != s.charAt(end)) return false;
+            start++;
+            end--;
+        }
+        return true;
+    }
+}
