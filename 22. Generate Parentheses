@@ -1,0 +1,29 @@
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> result = new ArrayList<>();
+        StringBuilder currString = new StringBuilder();
+
+        backtrack(result, currString, 0, 0, n);
+
+        return result;
+    }
+
+    private void backtrack(List<String> result, StringBuilder currString, int left, int right, int n) {
+        if (left == n && right == n) {
+            result.add(currString.toString());
+            return;
+        }
+
+        if (left < n) {
+            currString.append('(');
+            backtrack(result, currString, left + 1, right, n);
+            currString.deleteCharAt(currString.length() - 1);
+        }
+
+        if (right < left) {
+            currString.append(')');
+            backtrack(result, currString, left, right + 1, n);
+            currString.deleteCharAt(currString.length() - 1);
+        }
+    }
+}
