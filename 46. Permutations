@@ -1,0 +1,33 @@
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        
+        backtrack(res, new ArrayList<>(), nums);
+
+        return res;
+    }
+
+    private void backtrack(List<List<Integer>> res, List<Integer> tmp, int[] nums) {
+        // base case
+        if (tmp.size() == nums.length) {
+            res.add(new ArrayList<>(tmp));
+            return;
+        }
+
+        for (int num : nums) {
+            if (tmp.contains(num)) {
+                continue;
+            }
+
+            // add in temporary list
+            tmp.add(num);
+
+            // explore all combinations
+            backtrack(res, tmp, nums);
+
+            // remove
+            tmp.remove(tmp.size() - 1);
+        }
+
+    }
+}
