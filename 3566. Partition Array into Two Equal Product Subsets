@@ -1,0 +1,31 @@
+class Solution {
+    public boolean checkEqualPartitions(int[] nums, long target) {
+        long product = 1;
+        for (int num : nums) {
+            product *= num;
+        }
+
+        if (product != (target * target)) return false;
+
+        return recur(nums, 0, target, 0, new HashMap<>());
+    }
+
+    private boolean recur(int[] nums, int index, long currTarget, int count, Map<String, Boolean> memo) {
+        if (currTarget == 1 && count > 0) return true;
+
+        if (index == nums.length || currTarget < 1) return false;
+
+        String key = index + "," + currTarget;
+        if (memo.containsKey(key)) return memo.get(key);
+
+        boolean include = false;
+        if (currTarget % nums[index] == 0) {
+            include = recur(nums, index + 1, currTarget / nums[index], count + 1, memo);
+        }
+        boolean exclude = recur(nums, index + 1, currTarget, count, memo);
+
+        boolean result = include || exclude;
+        memo.put(key, result);
+        return result;
+    }
+}
