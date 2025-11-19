@@ -1,0 +1,29 @@
+class Solution {
+    public String[] findWords(String[] words) {
+        String str1 = "qwertyuiop";
+        String str2 = "asdfghjkl";
+        String str3 = "zxcvbnm";
+
+        List<String> result = new ArrayList<>();
+
+        for (String word : words) {
+            String lower = word.toLowerCase();
+
+            boolean inRow1 = true;
+            boolean inRow2 = true;
+            boolean inRow3 = true;
+
+            for (char ch : lower.toCharArray()) {
+                if (str1.indexOf(ch) == -1) inRow1 = false;
+                if (str2.indexOf(ch) == -1) inRow2 = false;
+                if (str3.indexOf(ch) == -1) inRow3 = false;
+            }
+
+            if (inRow1 || inRow2 || inRow3) {
+                result.add(word);
+            }
+        }
+
+        return result.toArray(new String[0]);
+    }
+}
